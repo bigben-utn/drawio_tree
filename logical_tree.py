@@ -43,8 +43,10 @@ class Node():
     isLegitimate=True: Su existencia actualiza la lista _children_ del padre
     """
 
-    def __init__(self, data: NodeData, parent: Node = None, isLegitimate: bool = True, children: list[Node] = []):
-
+    def __init__(self, data: NodeData, parent: Node = None, isLegitimate: bool = True, children: list[Node] = None):
+        if (children == None):
+            children = []
+            
         self.data           = data
         self.isLegitimate   = isLegitimate
         self.children       = children
