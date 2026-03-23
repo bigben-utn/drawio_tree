@@ -1,6 +1,9 @@
-from logical_tree import BuildTree, Node
+from logical_tree import BuildTree
 
 TAB = "    "
 
-root: Node = BuildTree("tree.txt", TAB)
-print(root.children)
+def myFunc():
+    pass
+
+root, niveles = BuildTree("tree.txt", TAB)
+print(niveles)

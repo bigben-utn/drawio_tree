@@ -1,8 +1,13 @@
-Gerencia General
-    Gerencia de Marketing
-        Departamento de Publicidad
-        Departamento de Promocion
-    Gerencia de Produccion
-        Departamento de Sillones
-        Departamento de Mesas
-    Gerencia de Personal
+A
+    B
+        C
+        D
+            K
+            L
+            Z
+    E
+        F
+            i
+            J
+        G
+        H
