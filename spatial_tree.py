@@ -14,14 +14,13 @@ class Mapa():
                 self.matrix[y].append(None)
     
     def add(self, node: Node, x, y):
-        self.matrix[x][y] = node
+        self.matrix[y][x] = node
         node.data.pos_absoluta = (x, y)
 
     def __str__(self):
         res = ""
         for y in range(0, self.y):
-            res += str(self.matrix[y])
-            res += "\n"
+            res += str(self.matrix[y]) + "\n"
         return res
 
 def nodeUpdater(niveles: list[list[Node]]):
@@ -37,3 +36,14 @@ def nodeUpdater(niveles: list[list[Node]]):
                 nodo.parent.data.long += nodo.data.long
             
             nodo.data.pos_relativa = int((nodo.data.long - 1) / 2)
+
+def agregar_hijos(nodo: Node, mapa: Mapa, offset: int):
+    for child in nodo.children:
+        mapa.add(child, child.data.pos_relativa + offset, child.data.nivel * 2)
+
+        if child.isLeaf():
+            offset += child.data.long + 1
+        else:
+            offset = agregar_hijos(child, mapa, offset)
+
+    return offset
