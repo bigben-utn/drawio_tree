@@ -47,3 +47,12 @@ def agregar_hijos(nodo: Node, mapa: Mapa, offset: int):
             offset = agregar_hijos(child, mapa, offset)
 
     return offset
+
+def buildLayout(root: Node, niveles: list[list[Node]]) -> Mapa:
+    nodeUpdater(niveles)    #Todos los nodos conocen la longitud de su subarbol asociado
+    mapa = Mapa(niveles)
+
+    mapa.add(root, root.data.pos_relativa, 0)
+    agregar_hijos(root, mapa, 0)
+
+    return mapa
