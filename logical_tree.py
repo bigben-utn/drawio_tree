@@ -15,46 +15,43 @@ class SmartList(list):
     def append(self, object):
         return super().append(object)
 
+    def fillVoid(self, key, fill):
+        if key >= len(self):
+            start   = len(self)
+            end     = key
+
+            for i in range(end - start + 1):
+                self.append(fill)
+
     def __getitem__(self, s):
         if s == -1:
             return None
         else:
-            if s >= len(self):
-                start_point = len(self)
-                end_point = s
-
-                for i in range(end_point - start_point + 1):
-                    self.append(copy.copy(self.default))
-
+            self.fillVoid(s, copy.copy(self.default))
             return super().__getitem__(s)
     
     def __setitem__(self, key, value):
-        if key >= len(self):
-            start_point = len(self)
-            end_point = key
-
-            for x in range(end_point - start_point):
-                self.append(None)
-            
-            self.append(value)
-        else:
-            return super().__setitem__(key, value)
+        self.fillVoid(key, copy.copy(self.default))
+        return super().__setitem__(key, value)
     
-def LineParser(line: str, spechar: str) -> tuple[int, str]:
+def parseLine(line: str, key: str) -> tuple[int, str]:
     """
     Distingue las dos partes de una linea: nivel & texto (sin interpretacion de errores)
+
+    - key (str): Cadena de texto que se define como un nivel. No puede usarse en el texto
+    - key (char): Caracter que se define como un nivel. Puede usarse en el texto
     """
 
-    if len(spechar) == 1:
-        text = line.lstrip(spechar)
+    if len(key) == 1:
+        text = line.lstrip(key)
         level = len(line) - len(text)
     else:
-        text = line.replace(spechar, '')
-        level = line.count(spechar)
+        text = line.replace(key, '')
+        level = line.count(key)
 
     return level, text.rstrip()
 
-def BuildTree(file: str, spechar: str = '*') -> tuple[Node, list[list[Node]]]:
+def buildTree(file: str, spechar: str = '*') -> tuple[Node, list[list[Node]]]:
     """
     Vincula nodos con sus hijos.
     
@@ -67,16 +64,14 @@ def BuildTree(file: str, spechar: str = '*') -> tuple[Node, list[list[Node]]]:
 
     with open(file, 'r') as f:
         for line in f:
-            nivel, text = LineParser(line, spechar)
-            nodo = Node(NodeData(id, text, nivel), linaje[nivel - 1])
+            level, text = parseLine(line, spechar)
+            nodo = Node(NodeData(id, text, level), linaje[level - 1])
 
-            levels[nivel].append(nodo)
+            levels[level].append(nodo)
 
-            linaje[nivel] = nodo
-            del linaje[nivel + 1:]
+            linaje[level] = nodo
+            del linaje[level + 1:]
 
             id += 1
 
     return linaje[0], list(levels)
-
-#root: Node = BuildTree("tree.txt")

@@ -1,58 +1,80 @@
-from node import Node
+from node import Node, Position
 
-class Mapa():
-    def __init__(self, niveles: list[list[Node]]):
-        root = niveles[0][0]
+class World():
+    """
+    Objeto con matriz definida según las dimensiones del subárbol de la raíz principal.
 
-        self.x = root.data.long
-        self.y = (len(niveles) * 2) - 1
+    La matriz es de referencias a objetos de tipo Node, agregables con _addNode(nodo, posición)_
+    """
 
-        self.matrix = []
-        for y in range(0, self.y):
-            self.matrix.append([])
-            for x in range(0, self.x):
-                self.matrix[y].append(None)
+    def __init__(self, levels_list: list[ list[Node] ], node: Node = None, pos: Position = None):
+        root = levels_list[0][0]
+        self.size = Position(root.data.block_size, (len(levels_list) * 2) - 1)
+
+        #El acceso a algún elemento de la matriz inicializada sigue el orden de las coordenadas... matriz[x][y]
+        self.matrix = [[None for _ in range(self.size.y)] for _ in range(self.size.x)]
+        
+        if node != None and pos != None:
+            self.addNode(node, pos)
     
-    def add(self, node: Node, x, y):
-        self.matrix[y][x] = node
-        node.data.pos_absoluta = (x, y)
+    def addNode(self, node: Node, pos: Position):
+        self.matrix[pos.x][pos.y] = node
+        node.data.position = (pos.x, pos.y)
 
-    def __str__(self):
+    def __str__(self) -> str:
         res = ""
-        for y in range(0, self.y):
-            res += str(self.matrix[y]) + "\n"
+
+        for y in range(self.size.y):
+            res += "\n"
+            for x in range(self.size.x):
+                element = self.matrix[x][y]
+                if element == None:
+                    res += "____, "
+                else:
+                    res += str(element) + ", "
+
         return res
 
-def nodeUpdater(niveles: list[list[Node]]):
-    for i in range(0, len(niveles)):
-        nivel = niveles[len(niveles) - 1 - i]
-        for nodo in nivel:
-            if (nodo.isLeaf()):
-                nodo.data.long = 1
-            else:
-                nodo.data.long += len(nodo.children) - 1
-            
-            if (nodo.parent != None):
-                nodo.parent.data.long += nodo.data.long
-            
-            nodo.data.pos_relativa = int((nodo.data.long - 1) / 2)
+def updateNodes(levels_list: list[ list[Node] ]):
+    """
+    Datos actualizados post-proceso:
+    - Tamaño del subárbol asociado
+    - Posición del nodo dentro de su subárbol.
+    """
 
-def agregar_hijos(nodo: Node, mapa: Mapa, offset: int):
+    #Actualiza los datos de los nodos ascendentemente (desde las hojas hasta la raíz)
+    for level in reversed(levels_list):
+        for nodo in level:
+            data    = nodo.data
+            parent  = nodo.parent
+            # - - - SELF - - -
+            if nodo.isLeaf():
+                data.block_size = 1
+            else:
+                data.block_size += len(nodo.children) - 1       #Contabiliza las unidades de separación entre nodos
+            # - - - PARENT - - -
+            if nodo.hasParent():
+                parent.data.block_size += data.block_size
+            # - - - POSITION - - -
+            data.distance = int(data.block_size / 2)
+
+def addSubtree(nodo: Node, mapa: World, offset: int) -> int:
     for child in nodo.children:
-        mapa.add(child, child.data.pos_relativa + offset, child.data.nivel * 2)
+        data = child.data
+
+        mapa.addNode(child, Position(data.distance + offset, 2 * data.level))
 
         if child.isLeaf():
-            offset += child.data.long + 1
+            offset += data.block_size + 1
         else:
-            offset = agregar_hijos(child, mapa, offset)
+            offset = addSubtree(child, mapa, offset)
 
     return offset
 
-def buildLayout(root: Node, niveles: list[list[Node]]) -> Mapa:
-    nodeUpdater(niveles)    #Todos los nodos conocen la longitud de su subarbol asociado
-    mapa = Mapa(niveles)
+def buildLayout(root: Node, levels_list: list[list[Node]]) -> World:
+    updateNodes(levels_list)
+    mapa = World(levels_list, root, Position(root.data.distance, 0))
 
-    mapa.add(root, root.data.pos_relativa, 0)
-    agregar_hijos(root, mapa, 0)
+    addSubtree(root, mapa, 0)
 
     return mapa
