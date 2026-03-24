@@ -12,14 +12,14 @@ class World():
         self.size = Position(root.data.block_size, (len(levels_list) * 2) - 1)
 
         #El acceso a algún elemento de la matriz inicializada sigue el orden de las coordenadas... matriz[x][y]
-        self.matrix = [[None for _ in range(self.size.y)] for _ in range(self.size.x)]
+        self.matrix: list[ list[Node] ] = [[None for _ in range(self.size.y)] for _ in range(self.size.x)]
         
         if node != None and pos != None:
             self.addNode(node, pos)
     
     def addNode(self, node: Node, pos: Position):
         self.matrix[pos.x][pos.y] = node
-        node.data.position = (pos.x, pos.y)
+        node.data.position = Position(pos.x, pos.y)
 
     def __str__(self) -> str:
         res = ""

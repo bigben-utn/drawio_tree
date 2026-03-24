@@ -18,7 +18,7 @@ class NodeData():
 
         self.block_size = 0                 #Tamaño horizontal del subárbol asociado, que contiene al nodo self como raíz
         self.distance   = 0                 #Distancia horizontal relativa del nodo self, a la cara izquierda del bloque
-        self.position   = Position(0, 0)    #Posición lógica absoluta en el mapa final
+        self.position = Position(0, 0)    #Posición lógica absoluta en el mapa final
 
 class Node():
     """
