@@ -1,17 +1,17 @@
-A. G. A
+AGA
     Directorio
         Gerencia General
             Gerencia de Ventas
                 Oficina de Marketing
                 Seccion de Cable
                 Seccion de Internet Banda Ancha
-                Seccion de Promo
+                Seccion de Promociones
             Gerencia de Servicio Tecnico
                 Departamento de Atencion a Particulares
-                    Oficina de Instalaciones de Nuevos Equipos
-                    Oficina de Reparación
-                Departamento de Atención a Empresas
+                    Oficina de Instalaciones
+                    Oficina de Reparacion
+                Departamento de Atencion a Empresas
                 Departamento de Atencion a GBA
             Gerencia de Personal
                 Seccion de Desarrollo de Personal
-                    Departamento de Capacitación
+                Seccion de Contrataciones

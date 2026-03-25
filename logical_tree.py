@@ -51,11 +51,11 @@ def parseLine(line: str, key: str) -> tuple[int, str]:
 
     return level, text.rstrip()
 
-def buildTree(file: str, spechar: str = '*') -> tuple[Node, list[list[Node]]]:
+def buildTree(file: str, key: str) -> list[ list[Node] ]:
     """
     Vincula nodos con sus hijos.
     
-    Retorna dos objetos: El nodo raiz, y la lista de nodos organizada por niveles
+    Retorna la lista de nodos organizada por niveles.
     """
 
     id = 0
@@ -64,7 +64,7 @@ def buildTree(file: str, spechar: str = '*') -> tuple[Node, list[list[Node]]]:
 
     with open(file, 'r') as f:
         for line in f:
-            level, text = parseLine(line, spechar)
+            level, text = parseLine(line, key)
             nodo = Node(NodeData(id, text, level), linaje[level - 1])
 
             levels[level].append(nodo)
@@ -74,4 +74,4 @@ def buildTree(file: str, spechar: str = '*') -> tuple[Node, list[list[Node]]]:
 
             id += 1
 
-    return linaje[0], list(levels)
+    return list(levels)

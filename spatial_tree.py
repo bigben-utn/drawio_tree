@@ -71,7 +71,15 @@ def addSubtree(nodo: Node, mapa: World, offset: int) -> int:
 
     return offset
 
-def buildLayout(root: Node, levels_list: list[list[Node]]) -> World:
+def buildLayout(levels_list: list[list[Node]]) -> World:
+    """
+    Construye el árbol entero con una disposición organizada que sigue los principios del diagrama.
+
+    Retorna el objeto World asociado al árbol.
+    """
+
+    root = levels_list[0][0]
+
     updateNodes(levels_list)
     mapa = World(levels_list, root, Position(root.data.distance, 0))
 

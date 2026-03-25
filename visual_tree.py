@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
-from node import NodeData, Node, Position
+import html
+from node import NodeData, Node
 
 ESTILO_ENTEGRAMA    = "whiteSpace=wrap;html=1;"
 ESTILO_CONEXION     = "edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;endArrow=none;endFill=0;"
@@ -17,13 +18,13 @@ class Tree():
         ET.SubElement(self.body, "mxCell", id="1", parent="0")
 
     def close(self, filename):
-        ET.indent(self.nexo, space="  ", level=0)    #Aplica pretty printing
+        ET.indent(self.nexo, space="  ", level=0)
 
         tree = ET.ElementTree(self.nexo)
         with open(filename, "wb") as f:
             tree.write(f, encoding="utf-8", xml_declaration=False)
 
-    def drawBox(self, data: NodeData, factor_x=100, factor_y=40, width=80, height=40):
+    def drawBox(self, data: NodeData, text_size=15, factor_x=100, factor_y=50, width=100, height=50):
         cell = ET.SubElement(
             self.body,
             "mxCell",
@@ -31,7 +32,7 @@ class Tree():
                 "id": data.id_s,
                 "parent":"1",
                 "style":ESTILO_ENTEGRAMA,
-                "value":data.text,
+                "value":html.unescape(f"&lt;font style=&quot;font-size: {text_size}px;&quot;&gt;{data.text}&lt;/font&gt;"),
                 "vertex":"1"
             }
         )
