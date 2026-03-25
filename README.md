@@ -2,8 +2,8 @@
 Programa de Python para la generación de arboles en archivos XML a partir de archivos TXT con lenguaje estructurado simple.
 Dicho archivo XML será compatible con draw.io
 
-Clonación: git clone https://github.com/bigben-utn/drawio_tree.git
-Ejecución: python main.py [settings_filename]
+- Clonación: git clone https://github.com/bigben-utn/drawio_tree.git
+- Ejecución: python main.py [settings_filename]
 
 *settings_filename: Es el archivo de configuración, típicamente: settings.ini*
 
@@ -20,7 +20,7 @@ draw.io -> Extras -> Edit Diagram...
 - output_filename: Archivo *xml* utilizable en draw.io
 - copy_file: Establece si se debe copiar el archivo *output_filename* en el portapapeles
 
-Nota: Si copy_file está activo, desde draw.io *ctrl*+*V* pegará inmediatamente el diagrama del árbol
+Nota: Si copy_file está activo, desde draw.io: *ctrl*+*V* pegará inmediatamente el diagrama del árbol
 
 **FORMATO**
 
