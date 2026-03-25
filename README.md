@@ -10,7 +10,7 @@ Dicho archivo XML será compatible con draw.io
 El contenido del archivo XML resultante puede agregarse a draw.io mediante:
 draw.io -> Extras -> Edit Diagram...
 
-Nota: El archivo *tree.txt* y *settings.ini* son ejemplos de uso, y son los únicos dispuestos a ser modificados
+Nota: Los archivos *tree.txt* y *settings.ini* son ejemplos de uso, y son los **únicos** dispuestos a ser modificados
 
 **ARCHIVO DE CONFIGURACION**
 
@@ -37,3 +37,4 @@ Al inicio de la linea se usa una cadena de texto *key* con sucesivas repeticione
 - Un nodo no debe estar debajo de otro nodo, a menos que se pueda crear un camino unidireccional entre ambos.
 - Cada nodo tiene un único nodo padre.
 - Los nodos hijos de un nodo están al mismo nivel.
+- La distancia entre niveles consecutivos coincide con la tamaño vertical del entegrama básico.
