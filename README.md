@@ -7,8 +7,9 @@ Dicho archivo XML será compatible con draw.io
 
 *settings_filename: Es el archivo de configuración, típicamente: settings.ini*
 
-El contenido del archivo XML resultante puede agregarse a draw.io mediante:
-draw.io -> Extras -> Edit Diagram...
+El contenido del archivo XML resultante puede agregarse a draw.io de dos maneras:
+1) draw.io -> Extras -> Edit Diagram... -> Reemplazar el código anterior por el nuevo
+2) copiando el archivo y pegándolo en una hoja de draw.io
 
 Nota: Los archivos *tree.txt* y *settings.ini* son ejemplos de uso, y son los **únicos** dispuestos a ser modificados
 
@@ -22,7 +23,7 @@ Nota: Los archivos *tree.txt* y *settings.ini* son ejemplos de uso, y son los **
 - output_filename: Archivo *xml* utilizable en draw.io
 - copy_file: Establece si se debe copiar el archivo *output_filename* en el portapapeles
 
-Nota: Si copy_file está activo, desde draw.io: *ctrl*+*V* pegará inmediatamente el diagrama del árbol
+Nota: Si copy_file está activo, desde draw.io: *ctrl*+*V* pegará inmediatamente el diagrama del árbol (para un S.O. con powershell)
 
 **FORMATO**
 
@@ -36,5 +37,5 @@ Al inicio de la linea se usa una cadena de texto *key* con sucesivas repeticione
 - Un nodo se encuentra centrado horizontalmente respecto de su sub-árbol asociado.
 - Un nodo no debe estar debajo de otro nodo, a menos que se pueda crear un camino unidireccional entre ambos.
 - Cada nodo tiene un único nodo padre.
-- Los nodos hijos de un nodo están al mismo nivel.
-- La distancia entre niveles consecutivos coincide con la tamaño vertical del entegrama básico.
+- Los nodos hermanos comparten nivel.
+- La distancia entre niveles consecutivos coincide con el tamaño vertical del entegrama (box_height).
