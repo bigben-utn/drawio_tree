@@ -10,6 +10,8 @@ Dicho archivo XML será compatible con draw.io
 El contenido del archivo XML resultante puede agregarse a draw.io mediante:
 draw.io -> Extras -> Edit Diagram...
 
+Nota: El archivo *tree.txt* y *settings.ini* son ejemplos de uso, y son los únicos dispuestos a ser modificados
+
 **ARCHIVO DE CONFIGURACION**
 
 - box_height: Establece la cantidad de puntos (de draw.io) que ocupa verticalmente cada entegrama
@@ -33,5 +35,5 @@ Al inicio de la linea se usa una cadena de texto *key* con sucesivas repeticione
 - Si un par de nodos comparten nivel, entonces coincide su disposición vertical (se diagraman a la misma altura).
 - Un nodo se encuentra centrado horizontalmente respecto de su sub-árbol asociado.
 - Un nodo no debe estar debajo de otro nodo, a menos que se pueda crear un camino unidireccional entre ambos.
-- Cada nodo tiene un único nodo padre
-- Los nodos hijos de un nodo están al mismo nivel
+- Cada nodo tiene un único nodo padre.
+- Los nodos hijos de un nodo están al mismo nivel.
